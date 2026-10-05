@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vana Resort Araku — Project Demo Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-dark-green: #1B4332;
+      --c-emerald: #2D6A4F;
+      --c-mint: #D8F3DC;
+      --c-gold: #D4A373;
+      --c-sand: #FBF9F5;
+      --c-sand-surface: #F4EFE6;
+      --c-slate-900: #0F172A;
+      --c-slate-700: #334155;
+      --c-slate-500: #64748B;
+      --c-card-border: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0B1D15;
+      color: var(--c-slate-900);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Presentation Header Toolbar */
+    .top-bar {
+      height: 54px;
+      background: rgba(15, 35, 26, 0.95);
+      border-bottom: 1px solid rgba(212, 163, 115, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: #fff;
+      z-index: 100;
+    }
+
+    .top-bar .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .top-bar .brand-badge {
+      background: var(--c-emerald);
+      color: var(--c-mint);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .top-bar .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .top-bar .controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-gold {
+      background: var(--c-gold);
+      color: var(--c-dark-green);
+      border-color: var(--c-gold);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: #e2b485;
+      color: #0b1d15;
+    }
+
+    /* Main Deck Stage */
+    .deck-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: var(--c-sand);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      padding: 44px 54px;
+      animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: scale(0.98) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Slide Components */
+    .slide-tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--c-mint);
+      color: var(--c-dark-green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .slide-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--c-slate-900);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--c-slate-500);
+      margin-bottom: 24px;
+    }
+
+    /* Dark Theme Slide (Title & Conclusion) */
+    .slide-dark {
+      background: var(--c-dark-green);
+      color: #fff;
+      justify-content: center;
+    }
+
+    .slide-dark .slide-title {
+      color: #fff;
+      font-size: 48px;
+    }
+
+    .slide-dark .slide-subtitle {
+      color: var(--c-mint);
+      font-size: 19px;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      flex: 1;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--c-card-border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--c-slate-900);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--c-slate-700);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .card-list {
+      list-style: none;
+      font-size: 12.5px;
+      color: var(--c-slate-700);
+      space-y: 8px;
+    }
+
+    .card-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card-list li::before {
+      content: "•";
+      color: var(--c-emerald);
+      font-weight: bold;
+    }
+
+    /* Room Cards */
+    .room-card {
+      background: #fff;
+      border: 1px solid var(--c-card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .room-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .room-body {
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .room-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c-dark-green);
+      margin: 4px 0;
+    }
+
+    .room-specs {
+      font-size: 11px;
+      color: var(--c-slate-500);
+      margin-bottom: 8px;
+    }
+
+    .room-tag {
+      align-self: flex-start;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    /* Step Timeline */
+    .step-card {
+      background: #fff;
+      border: 1px solid var(--c-card-border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--c-mint);
+      color: var(--c-dark-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    /* Table */
+    .table-container {
+      flex: 1;
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--c-card-border);
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--c-dark-green);
+      color: #fff;
+      padding: 10px 14px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--c-card-border);
+      color: var(--c-slate-700);
+    }
+
+    tr:nth-child(even) td {
+      background: #fafaf9;
+    }
+
+    /* Code Box */
+    .code-box {
+      background: var(--c-slate-900);
+      color: #38BDF8;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    /* Bottom Nav Bar */
+    .bottom-bar {
+      height: 56px;
+      background: rgba(15, 35, 26, 0.95);
+      border-top: 1px solid rgba(212, 163, 115, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: #fff;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      background: var(--c-gold);
+      transform: scale(1.3);
+    }
+
+    /* Speaker Notes Drawer */
+    .notes-drawer {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      right: 20px;
+      background: #0F172A;
+      color: #F8FAFC;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .notes-drawer.open {
+      display: block;
+    }
+
+    .notes-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--c-gold);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Toolbar -->
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-badge">DEMO PPT</span>
+      <span class="brand-title">Vana Resort Araku</span>
+      <span style="font-size: 12px; color: var(--c-gold); margin-left: 8px;">Project Technical Presentation</span>
+    </div>
+    <div class="controls">
+      <button class="btn" id="btn-notes" onclick="toggleNotes()">🎙️ Speaker Notes [S]</button>
+      <a href="http://localhost:5173/" target="_blank" class="btn btn-gold">🚀 Open Live Resort App</a>
+    </div>
+  </header>
+
+  <!-- Slide Deck -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide slide-dark active" data-notes="Welcome everyone! Today I am presenting the full-stack web application and digital guest experience platform developed for Vana Resort Araku. It is engineered with React 19, TypeScript, and Vite, featuring authentic room photo galleries, offline-resilient booking, 11 Araku attraction guides, and direct WhatsApp concierge hand-off.">
+      <div style="max-width: 900px;">
+        <span class="slide-tag" style="background: rgba(255,255,255,0.15); color: #D8F3DC; border: 1px solid rgba(255,255,255,0.3);">
+          PROJECT DEMONSTRATION & ARCHITECTURE
+        </span>
+        <h1 class="slide-title" style="margin-top: 14px;">VANA RESORT ARAKU</h1>
+        <p class="slide-subtitle" style="margin-top: 10px; max-width: 780px;">
+          Full-Stack Eco-Luxury Resort Web Application & Digital Guest Experience Platform
+        </p>
+        <div style="height: 2px; background: var(--c-gold); width: 100%; margin: 24px 0;"></div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+          <div style="background: rgba(20, 54, 40, 0.8); padding: 14px; border-radius: 10px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--c-gold);">FRONTEND STACK</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 4px;">React 19 + TypeScript + Vite</div>
+          </div>
+          <div style="background: rgba(20, 54, 40, 0.8); padding: 14px; border-radius: 10px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--c-gold);">BACKEND & DATA</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 4px;">PHP 8.2 REST API + MySQL 8</div>
+          </div>
+          <div style="background: rgba(20, 54, 40, 0.8); padding: 14px; border-radius: 10px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--c-gold);">RESILIENCE</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 4px;">100% Offline-First Fallback</div>
+          </div>
+          <div style="background: rgba(20, 54, 40, 0.8); padding: 14px; border-radius: 10px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--c-gold);">LOCATION</div>
+            <div style="font-size: 14px; font-weight: 700; color: #fff; margin-top: 4px;">Ranajilleda Waterfalls Road</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Vision & Objectives -->
+    <div class="slide" data-notes="Explain the core problem: Hill station travelers struggle with deceptive room photos and 15-25% OTA commissions. Our solution gives travelers 100% direct bookings with zero commissions, verified room and bathroom photos only, and an offline-ready booking engine.">
+      <span class="slide-tag">Project Vision</span>
+      <h2 class="slide-title">Executive Summary & Core Objectives</h2>
+      <p class="slide-subtitle">Connecting Araku Valley eco-tourism with a frictionless digital guest experience.</p>
+      <div class="grid-3">
+        <div class="card">
+          <span style="font-size: 10px; font-weight: 700; background: #FEE2E2; color: #991B1B; padding: 3px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 8px;">INDUSTRY NEED</span>
+          <h3 class="card-title">The Challenge</h3>
+          <p class="card-desc">Traditional hill resort websites suffer from outdated information, complex third-party booking commissions, lack of authentic room photos, and network downtime.</p>
+          <ul class="card-list">
+            <li>High OTA commissions (15–25%)</li>
+            <li>Misleading generic photos & room sizes</li>
+            <li>Lack of curated regional attraction guides</li>
+            <li>No direct WhatsApp concierge interaction</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span style="font-size: 10px; font-weight: 700; background: var(--c-mint); color: var(--c-dark-green); padding: 3px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 8px;">OUR APPROACH</span>
+          <h3 class="card-title">The Solution</h3>
+          <p class="card-desc">A bespoke web platform for Vana Resort Araku combining verified property details, room-only galleries, an offline-resilient booking engine, and direct WhatsApp concierge.</p>
+          <ul class="card-list">
+            <li>100% direct bookings with zero commissions</li>
+            <li>Strictly verified room & bathroom photos</li>
+            <li>Comprehensive guide for 11 Araku spots</li>
+            <li>Offline-resilient architecture with fallback</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span style="font-size: 10px; font-weight: 700; background: #FEF3C7; color: var(--c-accent-amber); padding: 3px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 8px;">DELIVERED IMPACT</span>
+          <h3 class="card-title">Key Results</h3>
+          <p class="card-desc">A seamless, full-featured web app that gives travelers instant clarity, easy booking inquiries, and empowers resort management with a full operational admin dashboard.</p>
+          <ul class="card-list">
+            <li>4 Verified Room & Suite categories</li>
+            <li>11 Curated Araku attractions with entry fees</li>
+            <li>50 High-resolution property photo snaps</li>
+            <li>24/7 AI virtual concierge chatbot</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Architecture -->
+    <div class="slide" data-notes="Highlight the 3 architectural tiers: Modern client SPA with React 19 and Tailwind CSS, an offline-first resilience layer that caches bookings to localStorage if the PHP backend is offline, and a robust PHP 8.2 + MySQL database layer.">
+      <span class="slide-tag">System Design</span>
+      <h2 class="slide-title">Technical Architecture & Engineering Stack</h2>
+      <p class="slide-subtitle">Engineered for extreme performance, offline fault-tolerance, and modern developer ergonomics.</p>
+      <div class="grid-3">
+        <div class="card" style="border-top: 4px solid var(--c-dark-green);">
+          <div style="font-size: 11px; font-weight: 700; color: var(--c-emerald); text-transform: uppercase;">CLIENT LAYER</div>
+          <h3 class="card-title" style="margin-top: 4px;">Frontend Architecture</h3>
+          <p class="card-desc">React 19 single-page application built with strict TypeScript and Vite 8 for instant HMR feedback.</p>
+          <ul class="card-list">
+            <li><strong>React 19:</strong> Modern hooks, Context API state management</li>
+            <li><strong>TypeScript:</strong> End-to-end interface contracts and types</li>
+            <li><strong>Tailwind CSS:</strong> Curated resort tokens and glassmorphism</li>
+            <li><strong>Lucide React:</strong> Lightweight SVG icon system</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--c-gold);">
+          <div style="font-size: 11px; font-weight: 700; color: var(--c-accent-amber); text-transform: uppercase;">RESILIENCE LAYER</div>
+          <h3 class="card-title" style="margin-top: 4px;">Offline-First Engine</h3>
+          <p class="card-desc">Ensures the guest booking and admin experience never fails even when the PHP backend is unreachable.</p>
+          <ul class="card-list">
+            <li><strong>Transparent Fallback:</strong> Automatically saves to localStorage</li>
+            <li><strong>Dynamic Price Engine:</strong> Real-time night & tariff calculation</li>
+            <li><strong>Instant VR-XXXXXX Ref:</strong> Immediate tracking codes</li>
+            <li><strong>WhatsApp Deep-Link:</strong> Pre-filled direct booking payload</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--c-slate-900);">
+          <div style="font-size: 11px; font-weight: 700; color: var(--c-slate-500); text-transform: uppercase;">SERVICES LAYER</div>
+          <h3 class="card-title" style="margin-top: 4px;">Backend & Database</h3>
+          <p class="card-desc">Production-grade PHP 8.2 REST API with structured MySQL 8 database schema and session auth.</p>
+          <ul class="card-list">
+            <li><strong>PHP 8.2 REST API:</strong> Modular controllers for rooms, bookings</li>
+            <li><strong>MySQL 8 Schema:</strong> Relational seed tables & foreign keys</li>
+            <li><strong>Session Auth:</strong> Secure cookie transmission for admin</li>
+            <li><strong>Google Hotels XML:</strong> Automated syndication feeds</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Accommodations -->
+    <div class="slide" data-notes="Walk through the 4 accommodation tiers: Standard Non AC (budget natural breeze), AC Deluxe (climate comfort with balcony), Junior Suite (heater for chilly mountain nights), and Executive Suite (600 sq ft luxury master living lounge).">
+      <span class="slide-tag">Accommodations</span>
+      <h2 class="slide-title">The 4 Verified Room Categories</h2>
+      <p class="slide-subtitle">Strictly verified room interiors and bathroom photos in View Details — zero generic distractions.</p>
+      <div class="grid-4">
+        <div class="room-card">
+          <img src="/images/rooms/standard-non-ac-room.png" alt="Standard Non AC" class="room-img" onerror="this.src='/images/gallery/deluxe-bedroom-bed.png'">
+          <div class="room-body">
+            <span class="room-tag" style="background: var(--c-mint); color: var(--c-dark-green);">NON AC COMFORT</span>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Standard Non AC</h4>
+            <div class="room-price">₹1,500 – ₹2,199 / night</div>
+            <div class="room-specs">272 sq.ft • Queen Bed • Max 3</div>
+            <p style="font-size: 11.5px; color: var(--c-slate-700); line-height: 1.4; margin-top: 4px;">Natural valley breezes, clean queen bed, mineral water, Wi-Fi, and sanitized ensuite bathroom.</p>
+          </div>
+        </div>
+        <div class="room-card">
+          <img src="/images/rooms/ac-deluxe.png" alt="AC Deluxe Room" class="room-img" onerror="this.src='/images/gallery/ac-deluxe-room-interior.png'">
+          <div class="room-body">
+            <span class="room-tag" style="background: #E0F2FE; color: #0369A1;">CLIMATE CONTROL</span>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">AC Deluxe Room</h4>
+            <div class="room-price">₹2,500 – ₹3,299 / night</div>
+            <div class="room-specs">370 sq.ft • Queen Bed • Max 3</div>
+            <p style="font-size: 11.5px; color: var(--c-slate-700); line-height: 1.4; margin-top: 4px;">Efficient air conditioning, closet space, plush queen bed, high-speed Wi-Fi, and floral-tiled bathroom.</p>
+          </div>
+        </div>
+        <div class="room-card">
+          <img src="/images/rooms/junior-suite.png" alt="Junior Suite" class="room-img" onerror="this.src='/images/gallery/suite-living-room.png'">
+          <div class="room-body">
+            <span class="room-tag" style="background: #FEF3C7; color: var(--c-accent-amber);">LUXURY SUITE</span>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Junior Suite</h4>
+            <div class="room-price">₹4,000 – ₹4,499 / night</div>
+            <div class="room-specs">462 sq.ft • King Bed • Max 3</div>
+            <p style="font-size: 11.5px; color: var(--c-slate-700); line-height: 1.4; margin-top: 4px;">In-suite heater for chilly Araku evenings, king bed, sofa lounge, iron & board, and enclosed balcony lounge.</p>
+          </div>
+        </div>
+        <div class="room-card">
+          <img src="/images/rooms/executive-suite.png" alt="Executive Suite" class="room-img" onerror="this.src='/images/gallery/suite-living-room.png'">
+          <div class="room-body">
+            <span class="room-tag" style="background: #FCE7F3; color: #9D174D;">PREMIER RETREAT</span>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Executive Suite</h4>
+            <div class="room-price">₹6,000 – ₹5,799 / night</div>
+            <div class="room-specs">600 sq.ft • Master Bed + Lounge</div>
+            <p style="font-size: 11.5px; color: var(--c-slate-700); line-height: 1.4; margin-top: 4px;">Pinnacle of luxury: 600 sq.ft living lounge, leather sofa, in-room heating, and private glass balcony.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 11 Curated Attractions -->
+    <div class="slide" data-notes="Demonstrate the 11 verified Araku Valley destinations. Highlight that the website doesn't just sell rooms; it acts as a regional concierge with exact distances, visiting times, and entry prices (e.g. Borra Caves, Chaparai Waterfalls, Madagada View Point).">
+      <span class="slide-tag">Explore Araku</span>
+      <h2 class="slide-title">11 Curated Araku Valley Attractions</h2>
+      <p class="slide-subtitle">Comprehensive travel directory complete with distances, recommended hours, and entry pricing.</p>
+      <div style="display: flex; gap: 20px; flex: 1;">
+        <div style="width: 280px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 12px; overflow: hidden;">
+            <img src="/images/attractions/chaparai-waterfalls.jpg" alt="Chaparai Waterfalls" style="width: 100%; height: 120px; object-fit: cover;">
+            <div style="padding: 10px; font-size: 12px; font-weight: 700; color: var(--c-dark-green);">💧 Chaparai Waterfalls (~7 km)</div>
+          </div>
+          <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 12px; overflow: hidden;">
+            <img src="/images/attractions/borra-caves.jpg" alt="Borra Caves" style="width: 100%; height: 120px; object-fit: cover;">
+            <div style="padding: 10px; font-size: 12px; font-weight: 700; color: var(--c-dark-green);">🦇 Borra Caves (~28 km)</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Attraction Name</th>
+                <th>Category</th>
+                <th>Distance</th>
+                <th>Recommended Hours</th>
+                <th>Entry Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. Madagada View Point</strong></td><td>Scenic Viewpoint</td><td>Approx. 16 km</td><td>6:00 AM – 5:30 PM (Sunrise)</td><td>Free Entry</td></tr>
+              <tr><td><strong>2. Coffee Museum</strong></td><td>Culture & Museum</td><td>Approx. 5 km</td><td>9:00 AM – 8:00 PM</td><td>₹20 Entry</td></tr>
+              <tr><td><strong>3. Tribal Museum</strong></td><td>Heritage Museum</td><td>Approx. 5 km</td><td>9:00 AM – 7:00 PM</td><td>₹40 Adults / ₹20 Kids</td></tr>
+              <tr><td><strong>4. Chaparai Waterfalls</strong></td><td>Water Cascade</td><td>Approx. 7 km</td><td>8:00 AM – 6:00 PM</td><td>₹20 Entry</td></tr>
+              <tr><td><strong>5. Araku Pinery</strong></td><td>Nature & Forest</td><td>Approx. 8 km</td><td>7:00 AM – 6:00 PM</td><td>Free Entry</td></tr>
+              <tr><td><strong>6. Padmapuram Gardens</strong></td><td>Botanical Garden</td><td>Approx. 2 km</td><td>8:30 AM – 6:00 PM</td><td>₹40 Entry</td></tr>
+              <tr><td><strong>7. Galikonda View Point</strong></td><td>High Altitude</td><td>Approx. 18 km</td><td>Open all day (Best morning)</td><td>Free Entry</td></tr>
+              <tr><td><strong>8. Wooden Bridge</strong></td><td>Scenic Spot</td><td>Approx. 3 km</td><td>Sunrise to Sunset</td><td>Free Entry</td></tr>
+              <tr><td><strong>9. Sunkarimetta Church</strong></td><td>Colonial Heritage</td><td>Approx. 12 km</td><td>8:00 AM – 5:00 PM</td><td>Free Entry</td></tr>
+              <tr><td><strong>10. Katiki Waterfalls</strong></td><td>Jungle Waterfall</td><td>Approx. 32 km</td><td>6:00 AM – 5:00 PM</td><td>₹20 (Jeep extra)</td></tr>
+              <tr><td><strong>11. Borra Caves</strong></td><td>Geological Wonder</td><td>Approx. 28 km</td><td>10:00 AM – 5:00 PM</td><td>₹65 Adults / ₹45 Kids</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Booking Engine & Offline Resilience -->
+    <div class="slide" data-notes="Demonstrate the reservation engine: 1) Guest selects dates & room. 2) System validates input client-side. 3) The offline resilience engine generates an inquiry ID (VR-XXXXXX) and saves locally if the backend is down. 4) The confirmation card links to WhatsApp with all stay details pre-filled.">
+      <span class="slide-tag">Reservation Workflow</span>
+      <h2 class="slide-title">Booking Engine & Offline Resilience</h2>
+      <p class="slide-subtitle">Frictionless booking experience with dynamic tariff calculation and direct WhatsApp hand-off.</p>
+      <div class="grid-4">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px;">Dates & Room Selection</h3>
+          <p style="font-size: 12px; color: var(--c-slate-700); line-height: 1.5;">Guest selects check-in, check-out dates, guest party size, and room category.</p>
+          <div style="background: var(--c-sand); border-radius: 8px; padding: 10px; margin-top: 14px; font-size: 11px; color: var(--c-dark-green); font-weight: 600;">
+            ✔ Dynamic night counter & instant estimated total based on sample tariffs.
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px;">Client Validation</h3>
+          <p style="font-size: 12px; color: var(--c-slate-700); line-height: 1.5;">Ensures 10-digit mobile number, valid forward dates, and correct party allocations.</p>
+          <div style="background: var(--c-sand); border-radius: 8px; padding: 10px; margin-top: 14px; font-size: 11px; color: var(--c-dark-green); font-weight: 600;">
+            ✔ Zero page reload, instant validation errors, accessible form controls.
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px;">Offline Resilience</h3>
+          <p style="font-size: 12px; color: var(--c-slate-700); line-height: 1.5;">Attempts backend PHP API. If offline, seamlessly persists booking to browser localStorage.</p>
+          <div style="background: var(--c-sand); border-radius: 8px; padding: 10px; margin-top: 14px; font-size: 11px; color: var(--c-dark-green); font-weight: 600;">
+            ✔ Generates unique VR-XXXXXX reference with zero annoying server errors!
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px;">WhatsApp Hand-off</h3>
+          <p style="font-size: 12px; color: var(--c-slate-700); line-height: 1.5;">Success confirmation card displays stay breakdown and direct WhatsApp concierge button.</p>
+          <div style="background: var(--c-sand); border-radius: 8px; padding: 10px; margin-top: 14px; font-size: 11px; color: var(--c-dark-green); font-weight: 600;">
+            ✔ Pre-formatted message: ID, Room, Dates, Nights, Tariff sent to +91 90141 15175.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Media Integrity (Room & Bathroom Photos Only) -->
+    <div class="slide" data-notes="Emphasize our media transparency policy: Inside 'View Room Details', we eliminated all generic resort lawns and pool pictures. Guests only see real bedroom furniture, mattress angles, and actual sanitized ensuite bathrooms with modern sanitary fittings.">
+      <span class="slide-tag">Media Integrity</span>
+      <h2 class="slide-title">Strictly Authentic Room & Bathroom Photos</h2>
+      <p class="slide-subtitle">Zero generic garden or pool distractions inside View Room Details — 100% guest transparency.</p>
+      <div class="grid-3">
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <img src="/images/gallery/deluxe-bedroom-bed.png" alt="Deluxe Bedroom" style="width: 100%; height: 210px; object-fit: cover;">
+          <div style="padding: 16px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--c-dark-green); text-transform: uppercase;">BEDROOM INTERIOR</div>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 17px; margin-top: 4px;">Deluxe Bed & Nightstand</h4>
+            <p style="font-size: 12px; color: var(--c-slate-600); margin-top: 6px;">Authentic plush headboard, clean linen, bedside telephone, and reading lamp setup.</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <img src="/images/gallery/designer-tiled-bathroom.png" alt="Designer Bathroom" style="width: 100%; height: 210px; object-fit: cover;">
+          <div style="padding: 16px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--c-dark-green); text-transform: uppercase;">ENSUITE BATHROOM</div>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 17px; margin-top: 4px;">Designer Floral Bathroom</h4>
+            <p style="font-size: 12px; color: var(--c-slate-600); margin-top: 6px;">Actual sanitized western commode, contemporary wall tiles, hot geyser, and western fittings.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span style="font-size: 10px; font-weight: 700; background: var(--c-mint); color: var(--c-dark-green); padding: 3px 8px; border-radius: 4px; align-self: flex-start; margin-bottom: 8px;">GUEST SATISFACTION</span>
+          <h3 class="card-title">Why This Matters</h3>
+          <p class="card-desc">Travelers frequently complain about arrival surprises when resort websites show generic garden pictures instead of the actual room interior and bathroom.</p>
+          <ul class="card-list">
+            <li>100% verified bedroom layouts</li>
+            <li>Real photos of western toilets & geysers</li>
+            <li>Private glass balcony sitting areas</li>
+            <li>Zero garden or swimming pool filler photos</li>
+            <li>Builds trust and eliminates bad reviews</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Admin Management Center -->
+    <div class="slide" data-notes="Explain the Admin Operations Center at /admin: Executive KPI cards, full booking lifecycle management (pending -> confirmed -> cancelled), room inventory editor, attraction manager, and contact inquiry moderation.">
+      <span class="slide-tag">Operations & Management</span>
+      <h2 class="slide-title">Admin Operations Center & KPIs</h2>
+      <p class="slide-subtitle">Comprehensive resort control room for reservations, inventory, messages, and analytics.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1;">
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">📊</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">KPI Executive Dashboard</h3>
+          <p class="card-desc">Real-time metrics: Total bookings, pending requests, confirmed stays, unread inquiries, and estimated revenue.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">🛎️</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Reservation Workflow</h3>
+          <p class="card-desc">Review incoming guest requests, filter by status, adjust finalized prices, and append internal desk notes.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">🛏️</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Room Inventory Editor</h3>
+          <p class="card-desc">Manage room descriptions, pricing, specifications (sq.ft, max guests), and authentic photo galleries.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">🗺️</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Attractions & Gallery</h3>
+          <p class="card-desc">Add or edit regional tourist spots with entry prices and distances. Manage the 50-photo categorized gallery.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">✉️</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Guest Inquiries Desk</h3>
+          <p class="card-desc">Track and respond to customer messages submitted via the website contact form with read/unread tracking.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 20px; margin-bottom: 6px;">🔒</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Security & Recovery</h3>
+          <p class="card-desc">Role-based management authentication with session support, emergency reset keys, and audit logs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Google Hotels XML Integration -->
+    <div class="slide" data-notes="Detail the Google Hotels integration: Automated Transaction XML generation, syndicating room rates and availability directly into Google Hotel Search listings.">
+      <span class="slide-tag">OTA & Syndication</span>
+      <h2 class="slide-title">Google Hotel Prices & XML Syndication</h2>
+      <p class="slide-subtitle">Direct integration with Google Hotel Listings standards for global search discoverability.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">Google Hotel Center Engine</h3>
+          <p class="card-desc">The application provides a built-in XML feed generator that syndicates property inventory and pricing according to Google Hotel Center specifications.</p>
+          <ul class="card-list" style="margin-top: 10px;">
+            <li><strong>Verified Address:</strong> Ranajilleda Waterfalls Road, Padmapuram</li>
+            <li><strong>Geocoding:</strong> Latitude 18.3334, Longitude 82.8821 for exact Maps placement</li>
+            <li><strong>Hotel Identifier:</strong> <code>vana_resort_araku</code></li>
+            <li><strong>Syndicated Categories:</strong> Standard Non AC, AC Deluxe, Junior Suite, Executive Suite</li>
+            <li><strong>Deep Landing URLs:</strong> Direct links to website booking funnel</li>
+          </ul>
+        </div>
+        <div class="code-box">
+          <div style="color: var(--c-gold); font-size: 11px; margin-bottom: 8px; font-weight: 700;">&lt;!-- Generated Google Hotel XML Feed --&gt;</div>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;listings&gt;
+  &lt;listing&gt;
+    &lt;id&gt;vana_resort_araku&lt;/id&gt;
+    &lt;name&gt;Vana Resort Araku Valley&lt;/name&gt;
+    &lt;address format="simple"&gt;
+      &lt;component name="addr1"&gt;
+        Ranajilleda Waterfalls Road, Padmapuram
+      &lt;/component&gt;
+      &lt;component name="city"&gt;Araku Valley&lt;/component&gt;
+      &lt;component name="province"&gt;Andhra Pradesh&lt;/component&gt;
+      &lt;component name="postal_code"&gt;531149&lt;/component&gt;
+      &lt;component name="country"&gt;IN&lt;/component&gt;
+    &lt;/address&gt;
+    &lt;latitude&gt;18.3334&lt;/latitude&gt;
+    &lt;longitude&gt;82.8821&lt;/longitude&gt;
+  &lt;/listing&gt;
+&lt;/listings&gt;
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Step-by-Step Live Demo Guide -->
+    <div class="slide" data-notes="This slide gives you the exact 5-minute script to follow when giving the live demo. Follow the 5 minutes: Homepage -> Rooms -> Attractions -> Booking -> Admin.">
+      <span class="slide-tag">Demo Guide</span>
+      <h2 class="slide-title">Step-by-Step Live Demonstration Script</h2>
+      <p class="slide-subtitle">Follow this 5-minute structured walkthrough to deliver a flawless project presentation.</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+        <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 18px;">
+          <span style="background: var(--c-mint); color: var(--c-dark-green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Min 0:00 – 1:00</span>
+          <div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;">1. Landing Page & First Impression</div>
+            <div style="font-size: 12px; color: var(--c-slate-600); margin-top: 2px;">Open <code>http://localhost:5173/</code>. Showcase hero banner, 3.2★ rating, quick booking bar, and welcome section.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 18px;">
+          <span style="background: var(--c-mint); color: var(--c-dark-green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Min 1:00 – 2:00</span>
+          <div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;">2. Accommodations & Authentic Photo Check</div>
+            <div style="font-size: 12px; color: var(--c-slate-600); margin-top: 2px;">Click "Stay" -> "Rooms & Suites". Click "View Details" on AC Deluxe Room to show strictly real bedroom & floral bathroom photos.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 18px;">
+          <span style="background: var(--c-mint); color: var(--c-dark-green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Min 2:00 – 3:00</span>
+          <div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;">3. Explore Dropdown & 11 Araku Destinations</div>
+            <div style="font-size: 12px; color: var(--c-slate-600); margin-top: 2px;">Hover on "Explore" -> "Nearby Attractions". Show 11 spots (Madagada View Point, Chaparai Waterfalls, Borra Caves) with distance & fees.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 18px;">
+          <span style="background: var(--c-mint); color: var(--c-dark-green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Min 3:00 – 4:00</span>
+          <div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;">4. Booking Submission & WhatsApp Concierge</div>
+            <div style="font-size: 12px; color: var(--c-slate-600); margin-top: 2px;">Click "Book Now", fill test name & dates, submit! Highlight the instant VR-XXXXXX reference card and WhatsApp concierge button.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--c-card-border); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 18px;">
+          <span style="background: var(--c-mint); color: var(--c-dark-green); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Min 4:00 – 5:00</span>
+          <div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;">5. Admin Panel & Operational Oversight</div>
+            <div style="font-size: 12px; color: var(--c-slate-600); margin-top: 2px;">Go to <code>/admin</code>, log in as admin, show live KPI counters, view the new booking in the table, and update status to "Confirmed".</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Engineering Highlights -->
+    <div class="slide" data-notes="Recap the technical achievements: Zero third-party booking commissions, offline resilience, verified media integrity, local destination guide, and enterprise admin capabilities.">
+      <span class="slide-tag">Engineering Highlights</span>
+      <h2 class="slide-title">Core Differentiators & Best Practices</h2>
+      <p class="slide-subtitle">What makes this project unique, robust, and production-ready.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1;">
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Zero Third-Party Dependency</h3>
+          <p class="card-desc">Direct bookings handled in-house with WhatsApp concierge hand-off, saving 15–25% in OTA commissions.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Offline-First Resilience</h3>
+          <p class="card-desc">Browser-level fallback guarantees reservation inquiries and admin review succeed even without active Apache/MySQL servers.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Strictly Authentic Media</h3>
+          <p class="card-desc">Room details showcase 100% verified room and bathroom photos — eliminating guest disappointment from generic photos.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Complete Local Destination Guide</h3>
+          <p class="card-desc">11 verified Araku Valley destinations with exact distances, timings, entry prices, and visiting tips right inside the resort site.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Modern React 19 + TypeScript</h3>
+          <p class="card-desc">Full type safety, sub-second HMR dev turnaround, Tailwind design system, and clean reusable component hierarchy.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 18px; color: var(--c-emerald); margin-bottom: 6px;">✔</div>
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;">Enterprise Admin Capabilities</h3>
+          <p class="card-desc">Complete dashboard with KPI counters, booking status workflow, contact inquiry tracker, and resort settings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Conclusion & Q&A -->
+    <div class="slide slide-dark" data-notes="Conclude the presentation by thanking the audience and opening the floor for live interactive demonstration and technical Q&A!">
+      <div style="max-width: 900px;">
+        <h1 class="slide-title" style="color: var(--c-gold); font-size: 48px;">THANK YOU</h1>
+        <p class="slide-subtitle" style="color: #fff; font-size: 22px; margin-top: 8px;">
+          Ready for Live Demonstration & Technical Discussion
+        </p>
+        <div style="height: 2px; background: var(--c-gold); width: 100%; margin: 24px 0;"></div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+          <div style="background: rgba(20, 54, 40, 0.85); padding: 18px; border-radius: 12px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--c-gold); text-transform: uppercase;">PROPERTY ADDRESS</div>
+            <div style="font-size: 13px; color: #fff; margin-top: 6px; line-height: 1.5;">
+              VANA RESORT ARAKU<br>
+              Ranajilleda Waterfalls Road, Padmapuram<br>
+              Araku Valley, Andhra Pradesh 531149
+            </div>
+          </div>
+          <div style="background: rgba(20, 54, 40, 0.85); padding: 18px; border-radius: 12px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--c-gold); text-transform: uppercase;">FRONT DESK DIRECT</div>
+            <div style="font-size: 13px; color: #fff; margin-top: 6px; line-height: 1.5;">
+              Phone: +91 90141 15175<br>
+              WhatsApp: +91 90141 15175<br>
+              Email: matsyaraju909@gmail.com
+            </div>
+          </div>
+          <div style="background: rgba(20, 54, 40, 0.85); padding: 18px; border-radius: 12px; border: 1px solid #2D6A4F;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--c-gold); text-transform: uppercase;">PROJECT ACCESS</div>
+            <div style="font-size: 13px; color: #fff; margin-top: 6px; line-height: 1.5;">
+              Local Web App:<br>
+              <a href="http://localhost:5173/" target="_blank" style="color: var(--c-mint); font-weight: 600;">http://localhost:5173/</a><br>
+              Admin: <a href="http://localhost:5173/admin" target="_blank" style="color: var(--c-mint); font-weight: 600;">/admin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Speaker Notes Drawer -->
+  <div class="notes-drawer" id="notes-drawer">
+    <div class="notes-header">
+      <span>🎙️ SPEAKER NOTES / TALKING POINTS</span>
+      <span style="cursor: pointer;" onclick="toggleNotes()">✕ CLOSE [S]</span>
+    </div>
+    <div id="notes-content">Notes will appear here...</div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <footer class="bottom-bar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="btn" onclick="prevSlide()">◀ Previous</button>
+      <button class="btn" onclick="nextSlide()">Next ▶</button>
+      <span style="font-size: 12px; color: var(--c-gold); font-weight: 600;" id="slide-indicator">Slide 1 of 12</span>
+    </div>
+
+    <!-- Dots -->
+    <div class="slide-dots" id="dots-container"></div>
+
+    <div style="font-size: 11px; color: rgba(255,255,255,0.6);">
+      Use <strong>◀ ▶ Arrow Keys</strong> to navigate • Press <strong>[F]</strong> for Fullscreen
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots-container');
+    const slideIndicator = document.getElementById('slide-indicator');
+    const notesContent = document.getElementById('notes-content');
+    const notesDrawer = document.getElementById('notes-drawer');
+    let currentIndex = 0;
+
+    // Generate dots
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (idx === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(idx);
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentIndex);
+      });
+      document.querySelectorAll('.dot').forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+      slideIndicator.textContent = `Slide ${currentIndex + 1} of ${slides.length}`;
+
+      // Update speaker notes
+      const activeSlide = slides[currentIndex];
+      notesContent.textContent = activeSlide.getAttribute('data-notes') || 'No speaker notes for this slide.';
+    }
+
+    function nextSlide() {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentIndex = idx;
+      updateSlide();
+    }
+
+    function toggleNotes() {
+      notesDrawer.classList.toggle('open');
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    // Initialize notes
+    updateSlide();
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+services:
+  # ─── Frontend: React/Vite Static Site ──────────────────────────────────────
+  - type: web
+    name: vana-resort-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://vana-resort-backend.onrender.com/api
+      - key: VITE_GEMINI_API_KEY
+        sync: false   # Set this manually in Render dashboard
+
+  # ─── Backend: PHP API ───────────────────────────────────────────────────────
+  - type: web
+    name: vana-resort-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile.backend
+    dockerContext: .
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: vana-resort-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: vana-resort-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: vana-resort-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: vana-resort-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: vana-resort-db
+          property: password
+
+# ─── MySQL Database ─────────────────────────────────────────────────────────
+databases:
+  - name: vana-resort-db
+    databaseName: vana_resort
+    user: vana_admin
+    plan: free
