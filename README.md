@@ -168,22 +168,31 @@ The upgraded Administration Desk includes **9 full-featured tabs**:
 
 ---
 
-## 🌐 Live GitHub Pages Hosting
+## 🌐 Cloud Hosting Options (Vercel & Render)
 
-The frontend is fully configured for deployment on **GitHub Pages**:
+Since this repository is **Private**, GitHub Pages requires a GitHub Pro plan. You can host it completely **FREE** on **Vercel** or **Render**:
 
-- **Live URL:** **[https://matsyaraju75.github.io/Vana-Resort/](https://matsyaraju75.github.io/Vana-Resort/)**
-- **Routing:** Client-side `HashRouter` ensures zero 404 reload errors on any page refresh or direct bookmark.
-- **Automated CI/CD:** `.github/workflows/deploy.yml` automatically builds and publishes the site to GitHub Pages on every `git push` to `main`.
-- **Manual Deploy Alternative:** Run `npm run deploy` to publish the `dist/` directory via the `gh-pages` branch.
+### Option 1: Vercel (Fastest & 100% Free for Private Repos)
+1. Go to [vercel.com](https://vercel.com) and log in with your GitHub account (`matsyaraju75`).
+2. Click **Add New...** ➔ **Project**.
+3. Select your repository: **`Vana-Resort`**.
+4. The settings are pre-configured in `vercel.json` (Framework Preset: **Vite**, Build Command: `npm run build`, Output: `dist`).
+5. Click **Deploy**.
+6. In ~30 seconds, Vercel will give you a live HTTPS link (e.g., `https://vana-resort.vercel.app`).
 
-### Enabling GitHub Pages on GitHub:
-1. Go to your repository on GitHub: `https://github.com/matsyaraju75/Vana-Resort`
-2. Navigate to **Settings** ➔ **Pages** (under Code and automation in the left menu).
-3. Under **Build and deployment > Source**:
-   - Choose **GitHub Actions** (recommended — triggers automatically on push)
-   - *OR* choose **Deploy from a branch** and select `gh-pages` / `/ (root)`.
-4. Your live site will be accessible at: `https://matsyaraju75.github.io/Vana-Resort/`
+### Option 2: Render (Free Static Site & Docker Backend)
+1. Go to [render.com](https://render.com) and log in with GitHub.
+2. Click **New +** ➔ **Blueprint**.
+3. Select `matsyaraju75/Vana-Resort` (it will read `render.yaml` automatically).
+4. Render will deploy:
+   - **Frontend:** `https://vana-resort-frontend.onrender.com`
+   - **Backend API:** `https://vana-resort-backend.onrender.com`
+
+### Option 3: GitHub Pages (Requires Public Repository)
+If you prefer using `https://matsyaraju75.github.io/Vana-Resort/`:
+1. Go to `https://github.com/matsyaraju75/Vana-Resort/settings`.
+2. Scroll to the bottom **Danger Zone** and change repository visibility to **Public**.
+3. Go to **Settings ➔ Pages** and select **Deploy from a branch** ➔ `gh-pages` branch.
 
 ---
 
